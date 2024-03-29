@@ -26,4 +26,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema); // you have to give the model name as camelcase singular. mongoDB will make "User" as "users" automatically while making model
+
+export default User;
