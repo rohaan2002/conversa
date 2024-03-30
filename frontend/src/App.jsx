@@ -12,7 +12,7 @@ function App() {
   return (
   <div className='flex flex-row justify-center items-center p-4 h-screen gap-4'>
     {/* <Login/> */}
-    <SignUp/> 
+    {/* <SignUp/>  */}
     <Home/>
   </div>
   )
