@@ -24,7 +24,7 @@
 
 import React, { useState } from 'react';
 
-const GenderCheckBox = ({selectedGender, handleCheckboxChange}) => {
+const GenderCheckBox = ({selectedGender, onCheckboxChange}) => {
   const [isCheckedMale, setIsCheckedMale] = useState(false);
   const [isCheckedFemale, setIsCheckedFemale] = useState(false);
   const [isCheckedOther, setIsCheckedOther] = useState(false);
@@ -54,8 +54,9 @@ const GenderCheckBox = ({selectedGender, handleCheckboxChange}) => {
           <input 
             type="checkbox" 
             className="checkbox checkbox-success" 
-            checked={isCheckedMale} 
-            onChange={handleMaleChange} 
+            // checked={isCheckedMale} 
+            checked={selectedGender==="male"}
+            onChange={()=>onCheckboxChange("male")} 
           />
         </label>
       </div>
@@ -65,8 +66,8 @@ const GenderCheckBox = ({selectedGender, handleCheckboxChange}) => {
           <input 
             type="checkbox" 
             className="checkbox checkbox-success" 
-            checked={isCheckedFemale} 
-            onChange={handleFemaleChange} 
+            checked={selectedGender==="female"}
+            onChange={()=>onCheckboxChange("female")} 
           />
         </label>
       </div>
@@ -76,8 +77,8 @@ const GenderCheckBox = ({selectedGender, handleCheckboxChange}) => {
           <input 
             type="checkbox" 
             className="checkbox checkbox-success" 
-            checked={isCheckedOther} 
-            onChange={handleOtherChange} 
+            checked={selectedGender==="other"}
+            onChange={()=>onCheckboxChange("other")} 
           />
         </label>
       </div>

@@ -2,23 +2,28 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import GenderCheckBox from './GenderCheckBox'
 import { useState } from 'react'
+import useSignup from '../../hooks/useSignup'
 const Signup = () => {
   const [inputs,setInputs]= useState({
     fullName: '',
-    username: '',
+    userName: '',
     password: '',
     confirmPassword: '',
     gender: '', 
   })
 
+  const {loading, signup} = useSignup();
+
   const handleCheckboxChange=(gender)=>{
     setInputs({...inputs, gender: gender})
   }
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault();
     console.log(inputs);
+    await signup(inputs);
   }  
+
   return (
     <div className=" flex flex-col items-center justify-center min-w-[500px] mx-auto ">
     <div className="w-full p-6 rounded-[2rem] shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-25">
@@ -44,8 +49,8 @@ const Signup = () => {
                 </span>
             </label>
             <input type="text" placeholder="Craft a Username" className="w-full input input-bordered h-12  rounded-[2rem]" 
-            value={inputs.username}
-            onChange={(e)=>setInputs({...inputs, username:e.target.value})}
+            value={inputs.userName}
+            onChange={(e)=>setInputs({...inputs, userName:e.target.value})}
             />
           </div>
             
@@ -55,7 +60,7 @@ const Signup = () => {
                 Password
                 </span>
             </label>
-            <input type="text" placeholder="Enter Password" className="w-full input input-bordered h-12  rounded-[2rem]"
+            <input type="password" placeholder="Enter Password" className="w-full input input-bordered h-12  rounded-[2rem]"
             value={inputs.password}
             onChange={(e)=>setInputs({...inputs, password:e.target.value})}
             />
@@ -67,13 +72,13 @@ const Signup = () => {
                Confirm Password
                 </span>
             </label>
-            <input type="text" placeholder="" className="w-full input input-bordered h-12  rounded-[2rem]"
+            <input type="password" placeholder="" className="w-full input input-bordered h-12  rounded-[2rem]"
             value={inputs.confirmPassword}
             onChange={(e)=>setInputs({...inputs, confirmPassword:e.target.value})}
             />
           </div>
             
-          <GenderCheckBox onCheckboxChange= {handleCheckboxChange} selectedGender= {inputs.gender}/>
+          <GenderCheckBox onCheckboxChange= {handleCheckboxChange} selectedGender={inputs.gender}/>
 
           <div>
                 <Link to="/login" className="text-base hover:underline hover:text-blue-300 m-2 inline-block">
