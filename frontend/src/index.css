@@ -16,8 +16,10 @@ body{
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to left, #f7edb6, #1bef6d);
+  background-image: linear-gradient(to left, #7d35aa, #2ce077);
   font-family: Righteous, sans-serif;
+  -webkit-text-stroke-width: 0.0001px;
+  -webkit-text-stroke-color: rgb(57, 57, 57);
 }
 
 
