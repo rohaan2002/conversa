@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
 import { TiMessages } from "react-icons/ti";
+import useConversation from "../zustand_store/useConversation";
 const MessageContainer = () => {
-  const noChatSelected = true;
+  // const noChatSelected = true;
+
+
+  const{selectedConversation, setSelectedConversation}=useConversation();
+  
+  // CLEANUp FUNCTION - wroks in a special way, just chatGPT how the fq it does - nulls the selectedConversation state so when logout and login again, no chat isnt selected!
+  useEffect(()=>{
+    return ()=> setSelectedConversation(null);
+  },[setSelectedConversation])
+  
 
   return (
     <div className=" flex flex-col md:min-w-[450px]  ">
-      {noChatSelected ? (
+      {!selectedConversation ? (
         <NoChatSelected />
       ) : (
         <>
@@ -15,7 +25,7 @@ const MessageContainer = () => {
           <div className="bg-slate-500 px-4 py-2 mb-2 h-12 flex items-center">
             <span className="label-text text-lg">To:&nbsp;&nbsp;{"  "}</span>
 
-            <span className="text-gray-900 font-bold text-lg">Anuv</span>
+            <span className="text-gray-900 font-bold text-lg">{selectedConversation.fullName}</span>
           </div>
           <Messages />
           <MessageInput />

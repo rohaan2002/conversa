@@ -30,8 +30,8 @@ const login =async(userName, password)=>{
 
     }catch(error){
         // if(!data) window.alert("Incorrect Credentials");
-        console.log(data);
-        window.alert(data.alert)
+        console.log(data.error);
+        window.alert(data.error)
     }finally{
         setLoading(false)
     }

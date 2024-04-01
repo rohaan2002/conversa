@@ -1,22 +1,28 @@
 import React from 'react'
+import useConversation from './../../zustand_store/useConversation.js'
+const Conversation = ({conversation, lastIdx, emoji}) => {
 
-const Conversation = () => {
+  const {selectedConversation, setSelectedConversation}=useConversation();
+
+  const isSelected = selectedConversation?._id===conversation._id; 
   return (
     <>
     
-    <div className=' flex gap-3 items-center hover:bg-green-400 p-1 py-1 cursor-pointer rounded-[2rem]'>
+    <div className={`flex gap-3 items-center hover:bg-green-400 p-1 py-1 cursor-pointer rounded-[2rem] ${isSelected ? 'bg-green-400': ''}`}
+    onClick={()=>setSelectedConversation(conversation)}
+    >
         {/* avatar part */}
       <div className='avatar online p-1'>
         <div className='w-12 rounded-full'>
-            <img src="https://cdn3.iconfinder.com/data/icons/font-awesome-regular-1/512/user-512.png" alt="user avatar" />
+            <img src={conversation.profilePic} alt="user avatar" />
         </div>
       </div>
 
     {/* name and emoji part */}
       <div className=' flex flex-col flex-1'>
         <div className=' flex gap-3 justify-between '>
-            <p className='font-bold text-gray-200'>Rohaan</p>
-            <span className='text-xl'>🦄</span>
+            <p className='font-bold text-gray-200'>{conversation.fullName}</p>
+            <span className='text-xl'>{emoji}</span>
         </div>
       </div>
     </div>

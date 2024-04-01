@@ -16,7 +16,7 @@ function App() {
   return (
     <>
     
-   <div><Toaster/></div>
+   {/* <div><Toaster/></div> */}
     <div className='flex flex-row justify-center items-center p-4 h-screen gap-4'>
     <Routes>
       <Route path='/' element={authUser?<Home/>: <Navigate to='/login'/> }/>
