@@ -6,8 +6,10 @@ import messageRoutes from "./routes/messageRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import connectToMongoDB from './db/connectToMongoDB.js';
 import {app,server} from './socket/socket.js';
+import path from "path";
 // const app = express();
 const PORT = process.env.PORT || 5000;
+const __dirname= path.resolve();
 
 dotenv.config(); 
 
@@ -18,10 +20,28 @@ app.use("/api/auth", authRoutes);  //middleware for auth functionalities - signu
 app.use("/api/message", messageRoutes) //middleware for message related functionalities - sendMessage, getMessage
 app.use("/api/users", userRoutes)
 
-// app.get("/", (req,res)=>{
-//     res.send(`Hii makin waking talkin chat app on port ${PORT}`)
-// })
+app.use(express.static(path.join(__dirname,"/frontend/dist")))  
+// . When a client makes a request for a static file (e.g., an image or a CSS file), Express will look for that file in the specified directory and serve it back to the client if it exists.
 
+
+// *******************LEARN ABOUT express.static()************************************
+// const express = require('express');
+// const app = express();
+
+// Serve static files from the 'public' directory
+// app.use(express.static('public'));
+
+// app.listen(3000, () => {
+//     console.log('Server is running on port 3000');
+// });
+// In this example, any file within the public directory (e.g., public/css/styles.css, public/images/logo.png, etc.) can be accessed directly from the browser by specifying the appropriate URL path relative to the public directory. For instance, if you have an image called logo.png inside the public/images directory, it would be accessible via "http ://localhost:3000/images/logo.png".
+
+// ***********************************************************************
+
+app.get("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,"frontend","dist","index.html"));
+});
+// so whenever a GET req is made to ANY PATH (*), the server will send index.html from the folder containing optimized build (/frontend/dist). this approach is used in deploying single page react applications which use client side routing, you just need to send index.html to the server
 
 server.listen(PORT, ()=> {
     connectToMongoDB();
