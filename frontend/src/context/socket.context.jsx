@@ -21,8 +21,9 @@ export const SocketContextProvider = ({ children }) => {
           }
         });
         setSocket(socket);
+        console.log(" \nSocket looks like this ",socket);
 
-        // socket.on is actually listening to the events
+        // socket.on is actually listening to the events // is used on both client as well as servers
         socket.on("getOnlineUsers", (users)=> { setOnlineUsers(users);
         })
 
@@ -34,7 +35,7 @@ export const SocketContextProvider = ({ children }) => {
             setSocket(null);
         }
     }
-  }, [authUser]);  // everytime the auth user is changes or added, you gotta sed the info again to the backend
+  }, [authUser]);  // everytime the auth user is changes or added, you gotta send the info again to the backend
   return (
     <SocketContext.Provider value={{socket, onlineUsers}}>{children}</SocketContext.Provider>
   );

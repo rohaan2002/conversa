@@ -3,6 +3,7 @@ import Messages from "./Messages";
 import MessageInput from "./MessageInput";
 import { TiMessages } from "react-icons/ti";
 import useConversation from "../zustand_store/useConversation";
+import { useAuthContext } from "../context/auth.context";
 const MessageContainer = () => {
   // const noChatSelected = true;
 
@@ -38,10 +39,16 @@ const MessageContainer = () => {
 export default MessageContainer;
 
 const NoChatSelected = () => {
+  const {authUser} = useAuthContext();
   return (
     <div className="flex items-center justify-center w-full h-full">
       <div className="px-4 text-center sm:text-lg md:text-xl font-semibold flex flex-col  items-center gap-2">
-        <div className="flex flex-row">
+        
+          <div className="flex flex-col">
+          <span className="text-3xl text-gray-400 font-semibold flex items-center gap-2">{`Hello, ${authUser.fullName}`} 👋</span>
+          <br />
+          </div>
+          <div className="flex flex-row">
           <p className="text-2xl">Welcome to&nbsp;</p>
           <p className="conversa-thematic text-3xl"> Conversa.</p>
         </div>

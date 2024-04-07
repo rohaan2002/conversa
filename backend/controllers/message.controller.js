@@ -1,5 +1,6 @@
 import Conversation from '../models/conversation.model.js'
 import Message from '../models/message.model.js'
+import { getReceiverSocketId, io } from '../socket/socket.js';
 export const sendMessage = async(req,res)=>{
    try{
     const {message}= req.body;
@@ -26,10 +27,18 @@ export const sendMessage = async(req,res)=>{
         conversation.messages.push(newMessage._id);
     }
 
-    // SOCKETIO Functionality will go here
-
+    
+    
     // This will run the both the save functiona t the same time
+
     await Promise.all([conversation.save(), newMessage.save()]);
+    // SOCKETIO Functionality will go here
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if(receiverSocketId){
+        // using io.to, bcz we only want to emit this event to a specific client,that user with receiverSocketId
+        // whereas io.emit sends the event to all the clients
+        io.to(receiverSocketId).emit("newMessage", newMessage)
+    }
 
     res.status(201).json(newMessage)
 

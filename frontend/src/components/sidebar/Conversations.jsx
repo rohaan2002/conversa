@@ -17,7 +17,7 @@ console.log("CONVERSATIONS: ",conversations);
           lastIdx = {idx===conversations.length-1}
         />
       ))}
-     {loading ? <span className=' loadingloading-spinner'></span> : null}
+     {loading ? <span className=' loading loading-spinner'></span> : null}
     </div>
   )
 }
