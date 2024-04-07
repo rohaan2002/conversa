@@ -25,13 +25,17 @@ const login =async(userName, password)=>{
             throw new Error(data.error)
         }
 
+        if(!data){
+            throw new Error ("Incorrect Credentials!")
+        }
+
         localStorage.setItem("conversa-user", JSON.stringify(data))
         setAuthUser(data);
 
     }catch(error){
         // if(!data) window.alert("Incorrect Credentials");
-        console.log(data.error);
-        window.alert(data.error)
+        console.log(error.message);
+        window.alert(error.message)
     }finally{
         setLoading(false)
     }
