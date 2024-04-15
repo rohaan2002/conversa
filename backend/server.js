@@ -7,11 +7,15 @@ import userRoutes from "./routes/userRoutes.js"
 import connectToMongoDB from './db/connectToMongoDB.js';
 import {app,server} from './socket/socket.js';
 import path from "path";
+import job from './cron.js';
 // const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname= path.resolve();
 
 dotenv.config(); 
+
+job.start() // har 14 min m ek GET req send krta rhega acc to cron.js (see file)
+// we do this cz free tier of render makes it take 1 min time if the server is inactive for 15minutes. so we'll keep sending req eevry 14 min to keep server active and fast
 
 app.use(express.json()) //JSON Parsing: It enables the Express.js application to automatically parse JSON data sent in the body of HTTP requests. When a request is received by the server, if it contains JSON data in its body (checked by content-type: application/json), this middleware parses the JSON data and exposes it in the req.body property of the request object.
 app.use(cookieParser()); //Parsing Cookies: When we talk about parsing cookies, it means extracting the individual cookies and their values from the Cookie header of an incoming HTTP request. This allows the server-side application to access and use the cookies sent by the client. simply find cookie in req.cookie object, instead of accessinh header and then finding
